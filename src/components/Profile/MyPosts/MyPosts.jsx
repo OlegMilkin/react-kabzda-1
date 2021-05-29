@@ -10,7 +10,8 @@ const MyPosts = () => {
         New post
       </div>
       <div>
-        <Post/>
+        <Post message='Hi how are you?' like='5'/>
+        <Post message='Hello I am post?' like='10'/>
       </div>
     </div>
   )
