@@ -2,3 +2,11 @@
     grid-area: n;
     background-color: burlywood;
 }
+.nav a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.nav a.activeLink {
+    color: green;
+}
