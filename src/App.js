@@ -8,6 +8,7 @@ import News from "./components/News/News";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
 import {Route, BrowserRouter} from "react-router-dom"
+import { postsData, dialogsData, messagesData } from './index';
 
 const App = () => {
   return (
@@ -16,10 +17,14 @@ const App = () => {
           <Header />
           <Navbar />
           <div className='content'>
-            <Route path='/profile' component={Profile} />
-            <Route path='/dialogs' component={Dialogs} />
-            <Route path='/news' component={News} />
-            <Route path='/music' component={Music} />
+            <Route path='/profile'>
+              <Profile postsData={postsData} />
+            </Route>
+            <Route path='/dialogs'>
+              <Dialogs dialogsData={dialogsData} messagesData={messagesData} />
+            </Route>
+            <Route path='/news' component={News}/>
+            <Route path='/music' component={Music}/>
             <Route path='/settings' component={Settings} />
           </div>
         </div>

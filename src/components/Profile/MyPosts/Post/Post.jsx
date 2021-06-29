@@ -1,8 +1,6 @@
 import React from "react";
 import classes from "./Post.module.css";
 
-console.log(classes)
-
 const Post = (props) => {
   return (
     <div className={classes.post__item}>
