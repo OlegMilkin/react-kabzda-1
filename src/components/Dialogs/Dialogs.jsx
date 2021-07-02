@@ -5,6 +5,12 @@ import Message from "./Message/Message";
 
 const Dialogs = (props) => {
 
+  let textareaRef = React.createRef();
+
+  const addAnswer = () => {
+    alert(textareaRef.current.value)
+  }
+
   const dialogElement = props.state.dialogsData.map((dialog) => {
     return <DialogItem name={dialog.name} id={dialog.id} key={dialog.id}/>
   })
@@ -20,6 +26,10 @@ const Dialogs = (props) => {
       </div>
       <div className={classes.messages}>
         { messageElement }
+        <div className={classes.answerWrapp}>
+          <textarea className={classes.answerTextarea} ref={textareaRef}></textarea>
+          <button className={classes.answerButton} onClick={ addAnswer }>App Answer</button>
+        </div>
       </div>
     </div>
   )

@@ -22,4 +22,21 @@
 
 .message {
 
- }
+}
+
+.answerWrapp {
+ display: flex;
+ flex-direction: column;
+}
+
+.answerTextarea {
+ width: 400px;
+ height: 150px;
+ margin-bottom: 15px;
+ margin-top: 15px;
+}
+
+.answerButton {
+ width: max-content;
+ margin-bottom: 15px;
+}

@@ -68,4 +68,15 @@ let state = {
   }
 }
 
+export let addPost = (postMsg) => {
+  let newPost = {
+    id: 3,
+    message: postMsg,
+    likes: 0
+  }
+
+  state.profile.postsData.push(newPost)
+  rerenderTree()
+}
+
 export default state;
