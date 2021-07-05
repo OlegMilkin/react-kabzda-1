@@ -1,3 +1,5 @@
+import {rerenderTree} from '../render.js';
+
 let state = {
   profile: {
     postsData: [
