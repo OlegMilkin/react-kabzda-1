@@ -49,6 +49,7 @@ let state = {
         message: 'YO'
       },
     ],
+    messageText: 'Enter your text please',
   },
   sidebar: {
     friends: [
@@ -85,6 +86,21 @@ export let addPost = () => {
 
 export let updatePostText = (postText) => {
   state.profile.newPostText = postText
+  rerenderTree(state)
+}
+
+export let updateMessageText = (msgText) => {
+  state.dialogs.messageText = msgText
+  rerenderTree(state)
+}
+
+export let addMessageText = () => {
+  let newMessage = {
+    id: '4',
+    message: state.dialogs.messageText
+  }
+  state.dialogs.messagesData.push(newMessage)
+  state.dialogs.messageText = ''
   rerenderTree(state)
 }
 

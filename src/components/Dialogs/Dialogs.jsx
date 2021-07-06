@@ -2,13 +2,18 @@ import React from "react";
 import classes from "./Dialogs.module.css";
 import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
+import {updateMessageText} from "../../redux/state";
 
 const Dialogs = (props) => {
 
   let textareaRef = React.createRef();
 
   const addAnswer = () => {
-    alert(textareaRef.current.value)
+    props.addMessageText()
+  }
+
+  const updateMessageText = () => {
+    props.updateMessageText(textareaRef.current.value)
   }
 
   const dialogElement = props.state.dialogsData.map((dialog) => {
@@ -27,7 +32,12 @@ const Dialogs = (props) => {
       <div className={classes.messages}>
         { messageElement }
         <div className={classes.answerWrapp}>
-          <textarea className={classes.answerTextarea} ref={textareaRef}></textarea>
+          <textarea
+            className={classes.answerTextarea}
+            ref={textareaRef}
+            value={props.state.messageText}
+            onChange={updateMessageText}
+          />
           <button className={classes.answerButton} onClick={ addAnswer }>App Answer</button>
         </div>
       </div>
