@@ -14,6 +14,7 @@ let state = {
         likes: '10'
       },
     ],
+    newPostText: 'hello',
   },
   dialogs: {
     dialogsData: [
@@ -70,15 +71,21 @@ let state = {
   }
 }
 
-export let addPost = (postMsg) => {
+export let addPost = () => {
   let newPost = {
     id: 3,
-    message: postMsg,
+    message: state.profile.newPostText,
     likes: 0
   }
 
   state.profile.postsData.push(newPost)
-  rerenderTree()
+  state.profile.newPostText = '';
+  rerenderTree(state)
+}
+
+export let updatePostText = (postText) => {
+  state.profile.newPostText = postText
+  rerenderTree(state)
 }
 
 export default state;
