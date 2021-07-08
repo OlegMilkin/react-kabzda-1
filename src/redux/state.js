@@ -70,6 +70,9 @@ let store = {
       ]
     }
   },
+  getState() {
+    return this._state;
+  },
   rerenderTree() {
     console.log('State changed')
   },
@@ -103,9 +106,6 @@ let store = {
   },
   subsribe(observer) {
     this.rerenderTree = observer
-  },
-  getState() {
-    return this._state;
   },
 }
 
