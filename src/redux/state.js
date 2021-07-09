@@ -70,12 +70,16 @@ let store = {
       ]
     }
   },
-  getState() {
-    return this._state;
-  },
   rerenderTree() {
     console.log('State changed')
   },
+  getState() {
+    return this._state;
+  },
+  subsribe(observer) {
+    this.rerenderTree = observer
+  },
+
   addPost() {
     let newPost = {
       id: 3,
@@ -103,9 +107,6 @@ let store = {
     this._state.dialogs.messagesData.push(newMessage)
     this._state.dialogs.messageText = ''
     this.rerenderTree(this._state)
-  },
-  subsribe(observer) {
-    this.rerenderTree = observer
   },
 }
 
