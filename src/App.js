@@ -18,10 +18,16 @@ const App = (props) => {
           <Navbar state={props.state.sidebar} />
           <div className='content'>
             <Route path='/profile'>
-              <Profile state={props.state.profile} addPost={props.addPost} updatePostText={props.updatePostText}/>
+              <Profile
+                state={props.state.profile}
+                dispatch={props.dispatch}
+              />
             </Route>
             <Route path='/dialogs'>
-              <Dialogs state={props.state.dialogs} updateMessageText={props.updateMessageText} addMessageText={props.addMessageText}/>
+              <Dialogs
+                state={props.state.dialogs}
+                dispatch={props.dispatch}
+              />
             </Route>
             <Route path='/news' component={News}/>
             <Route path='/music' component={Music}/>

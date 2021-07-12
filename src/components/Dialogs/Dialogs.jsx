@@ -8,11 +8,11 @@ const Dialogs = (props) => {
   let textareaRef = React.createRef();
 
   const addAnswer = () => {
-    props.addMessageText()
+    props.dispatch({type: 'ADD-MESSAGE-TEXT'})
   }
 
   const updateMessageText = () => {
-    props.updateMessageText(textareaRef.current.value)
+    props.dispatch({ type: 'UPDATE-MESSAGE-TEXT', msgText: textareaRef.current.value })
   }
 
   const dialogElement = props.state.dialogsData.map((dialog) => {

@@ -8,11 +8,11 @@ const MyPosts = (props) => {
   let textArea = React.createRef()
 
   let addPost = () => {
-    props.addPost();
+    props.dispatch({ type: 'ADD-POST' });
   }
 
   let updatePostText = () => {
-    props.updatePostText(textArea.current.value)
+    props.dispatch({ type: 'UPDATE-POST-TEXT', postText: textArea.current.value })
   }
 
   return (
