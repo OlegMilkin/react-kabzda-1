@@ -1,3 +1,8 @@
+const ADD_POST = 'ADD-POST';
+const UPDATE_POST_TEXT = 'UPDATE-POST-TEXT';
+const UPDATE_MESSAGE_TEXT = 'UPDATE-MESSAGE-TEXT';
+const ADD_MESSAGE_TEXT = 'ADD-MESSAGE-TEXT';
+
 let store = {
   _state: {
     profile: {
@@ -80,17 +85,16 @@ let store = {
     this.rerenderTree = observer
   },
   dispatch(action) {
-    if (action.type === 'ADD-POST') {
+    if (action.type === ADD_POST) {
       let newPost = {
         id: 3,
         message: this._state.profile.newPostText,
         likes: 0
       }
-
       this._state.profile.postsData.push(newPost)
       this._state.profile.newPostText = '';
       this.rerenderTree(this._state)
-    } else if (action.type === 'UPDATE-POST-TEXT') {
+    } else if (action.type === UPDATE_POST_TEXT) {
       this._state.profile.newPostText = action.postText
       this.rerenderTree(this._state)
     } else if (action.type === 'UPDATE-MESSAGE-TEXT') {
@@ -105,6 +109,32 @@ let store = {
       this._state.dialogs.messageText = ''
       this.rerenderTree(this._state)
     }
+  }
+}
+
+export const addPostActionCreator = () => {
+  return {
+    type: ADD_POST
+  }
+}
+
+export const updateNewPostTextActionCreator = (text) => {
+  return {
+    type: UPDATE_POST_TEXT,
+    newText: text
+  }
+}
+
+export const updateNewMessageText = (text) => {
+  return {
+    type: UPDATE_MESSAGE_TEXT,
+    msgText: text
+  }
+}
+
+export const addMessageText = () => {
+  return {
+    type: ADD_MESSAGE_TEXT
   }
 }
 

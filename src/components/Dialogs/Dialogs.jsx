@@ -2,17 +2,18 @@ import React from "react";
 import classes from "./Dialogs.module.css";
 import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
+import { updateNewMessageText, addMessageText } from "../../redux/state";
 
 const Dialogs = (props) => {
 
   let textareaRef = React.createRef();
 
   const addAnswer = () => {
-    props.dispatch({type: 'ADD-MESSAGE-TEXT'})
+    props.dispatch(addMessageText())
   }
 
   const updateMessageText = () => {
-    props.dispatch({ type: 'UPDATE-MESSAGE-TEXT', msgText: textareaRef.current.value })
+    props.dispatch( updateNewMessageText(textareaRef.current.value) )
   }
 
   const dialogElement = props.state.dialogsData.map((dialog) => {
