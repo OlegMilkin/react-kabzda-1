@@ -16,3 +16,16 @@ export const dialogsReducer = (state, action) => {
 
   return state;
 }
+
+export const updateNewMessageText = (text) => {
+  return {
+    type: UPDATE_MESSAGE_TEXT,
+    msgText: text
+  }
+}
+
+export const addMessageText = () => {
+  return {
+    type: ADD_MESSAGE_TEXT
+  }
+}
