@@ -2,25 +2,24 @@ import React from "react";
 import classes from "./Dialogs.module.css";
 import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
-import { updateNewMessageText, addMessageText } from "../../redux/dialogs-reducer";
 
 const Dialogs = (props) => {
 
   let textareaRef = React.createRef();
 
   const addAnswer = () => {
-    props.dispatch(addMessageText())
+    props.addAnswer()
   }
 
   const updateMessageText = () => {
-    props.dispatch( updateNewMessageText(textareaRef.current.value) )
+    props.updateMessageText(textareaRef.current.value);
   }
 
-  const dialogElement = props.state.dialogsData.map((dialog) => {
+  const dialogElement = props.dialogsData.map((dialog) => {
     return <DialogItem name={dialog.name} id={dialog.id} key={dialog.id}/>
   })
 
-  const messageElement = props.state.messagesData.map((messageItem) => {
+  const messageElement = props.messagesData.map((messageItem) => {
     return <Message message={messageItem.message} key={messageItem.id}/>
   })
 
@@ -35,7 +34,7 @@ const Dialogs = (props) => {
           <textarea
             className={classes.answerTextarea}
             ref={textareaRef}
-            value={props.state.messageText}
+            value={props.messageText}
             onChange={updateMessageText}
           />
           <button className={classes.answerButton} onClick={ addAnswer }>App Answer</button>
