@@ -2,14 +2,17 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import store from './redux/redux-store';
+import {Provider} from "react-redux";
 
 let rerenderTree = (state) => {
   ReactDOM.render(
-    <App
-      state={state}
-      store={store}
-      dispatch={store.dispatch.bind(store)}
-    />,
+    <Provider store={}>
+      <App
+        state={state}
+        store={store}
+        dispatch={store.dispatch.bind(store)}
+      />
+    </Provider>,
     document.getElementById('root')
   );
 }
