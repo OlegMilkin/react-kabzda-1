@@ -46,6 +46,7 @@ export const dialogsReducer = (state = initialState, action) => {
       id: '4',
       message: state.messageText
     }
+
     state.messagesData.push(newMessage);
     state.messageText = '';
   }
