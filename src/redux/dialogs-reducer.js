@@ -39,19 +39,21 @@ let initialState = {
 
 export const dialogsReducer = (state = initialState, action) => {
 
+  let stateCopy = {...state};
+
   if (action.type === UPDATE_MESSAGE_TEXT) {
-    state.messageText = action.msgText
+    stateCopy.messageText = action.msgText
   } else if (action.type === ADD_MESSAGE_TEXT) {
     let newMessage = {
       id: '4',
       message: state.messageText
     }
-
-    state.messagesData.push(newMessage);
-    state.messageText = '';
+    stateCopy.messagesData = [...state.messagesData]
+    stateCopy.messagesData.push(newMessage);
+    stateCopy.messageText = '';
   }
 
-  return state;
+  return stateCopy;
 }
 
 export const updateNewMessageText = (text) => {
