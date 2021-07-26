@@ -31,7 +31,7 @@ const App = (props) => {
             <Route path='/news' component={News} />
             <Route path='/music' component={Music} />
             <Route path='/settings' component={Settings} />
-            <Route path='/users' component={UsersContainer}></Route>
+            <Route path='/users' component={UsersContainer}/>
           </div>
         </div>
       </BrowserRouter>

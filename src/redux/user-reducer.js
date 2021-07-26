@@ -3,41 +3,42 @@ const UNFOLLOW = 'UN_FOLLOW';
 const SET_USERS = 'SET_USERS';
 
 let initialState = {
-  users: [
-    {
-      id: 1,
-      photoUrl: 'https://thumbs.dreamstime.com/b/male-avatar-icon-flat-style-male-user-icon-cartoon-man-avatar-hipster-vector-stock-91462914.jpg',
-      followed: false,
-      fullName: 'Dmitry K.',
-      status: 'I am a boss',
-      location: {
-        city: 'Minsk',
-        country: 'Belarus'
-      }
-    },
-    {
-      id: 2,
-      photoUrl: 'https://thumbs.dreamstime.com/b/male-avatar-icon-flat-style-male-user-icon-cartoon-man-avatar-hipster-vector-stock-91462914.jpg',
-      followed: true,
-      fullName: 'Sasha',
-      status: 'Vacationing',
-      location: {
-        city: 'Moscow',
-        country: 'Russia'
-      }
-    },
-    {
-      id: 3,
-      photoUrl: 'https://thumbs.dreamstime.com/b/male-avatar-icon-flat-style-male-user-icon-cartoon-man-avatar-hipster-vector-stock-91462914.jpg',
-      followed: false,
-      fullName: 'Oleg',
-      status: 'meeting',
-      location: {
-        city: 'Kiev',
-        country: 'Ukraine'
-      }
-    }
-  ]
+  users: []
+  // users: [
+  //   {
+  //     id: 1,
+  //     photoUrl: 'https://thumbs.dreamstime.com/b/male-avatar-icon-flat-style-male-user-icon-cartoon-man-avatar-hipster-vector-stock-91462914.jpg',
+  //     followed: false,
+  //     fullName: 'Dmitry K.',
+  //     status: 'I am a boss',
+  //     location: {
+  //       city: 'Minsk',
+  //       country: 'Belarus'
+  //     }
+  //   },
+  //   {
+  //     id: 2,
+  //     photoUrl: 'https://thumbs.dreamstime.com/b/male-avatar-icon-flat-style-male-user-icon-cartoon-man-avatar-hipster-vector-stock-91462914.jpg',
+  //     followed: true,
+  //     fullName: 'Sasha',
+  //     status: 'Vacationing',
+  //     location: {
+  //       city: 'Moscow',
+  //       country: 'Russia'
+  //     }
+  //   },
+  //   {
+  //     id: 3,
+  //     photoUrl: 'https://thumbs.dreamstime.com/b/male-avatar-icon-flat-style-male-user-icon-cartoon-man-avatar-hipster-vector-stock-91462914.jpg',
+  //     followed: false,
+  //     fullName: 'Oleg',
+  //     status: 'meeting',
+  //     location: {
+  //       city: 'Kiev',
+  //       country: 'Ukraine'
+  //     }
+  //   }
+  // ]
 }
 
 const userReducer = (state = initialState, action) => {
@@ -46,7 +47,7 @@ const userReducer = (state = initialState, action) => {
       return {
         ...state,
         users: state.users.map(
-          (u) => {
+          u => {
             if (u.id === action.userID) {
               return {...u, followed: true}
             }
