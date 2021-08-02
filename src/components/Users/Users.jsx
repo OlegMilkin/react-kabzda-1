@@ -1,46 +1,54 @@
 import React from "react";
-//import classes from "./user.module.css";
 import * as axios from 'axios';
 
-const Users = (props) => {
+class Users extends React.Component {
 
-  if (props.users.length === 0) {
-
-    axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
-      props.setUsers(response.data.items)
-    })
+  constructor(props) {
+    super(props)
   }
 
-  return (
-    <div>
-      {
-        props.users.map(u => <div key={u.id}>
-          <span>
-            <div>
-                <img src={u.photos.small || 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_o_UXxC0Hm0Ge1g5RH9GtppPV9fFTB7Jxrg&usqp=CAU'} alt="" width="50"/>
-            </div>
-            <div>
-              {
-                u.followed
-                  ? <button onClick={ () => { props.unfollow(u.id) }}>Unfollow</button>
-                  : <button onClick={ () => { props.follow(u.id) }}>Follow</button>
-              }
-            </div>
-          </span>
-          <span>
+  render () {
+    if (this.props.users.length === 0) {
+      axios.get('https://social-network.samuraijs.com/api/1.0/users')
+        .then(response => {
+          this.props.setUsers(response.data.items)
+        })
+    }
+
+    return (
+      <div>
+        {
+          this.props.users.map(u => <div key={u.id}>
             <span>
-              <div>{u.name}</div>
-              <div>{u.status}</div>
+              <div>
+                  <img src={u.photos.small || 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_o_UXxC0Hm0Ge1g5RH9GtppPV9fFTB7Jxrg&usqp=CAU'} alt="" width="50"/>
+              </div>
+              <div>
+                {
+                  u.followed
+                    ? <button onClick={ () => { this.props.unfollow(u.id) }}>Unfollow</button>
+                    : <button onClick={ () => { this.props.follow(u.id) }}>Follow</button>
+                }
+              </div>
             </span>
             <span>
-              <div>{"u.location.country"}</div>
-              <div>{"u.location.city"}</div>
+              <span>
+                <div>{u.name}</div>
+                <div>{u.status}</div>
+              </span>
+              <span>
+                <div>{"u.location.country"}</div>
+                <div>{"u.location.city"}</div>
+              </span>
             </span>
-          </span>
-        </div>)
-      }
-    </div>
-  )
+          </div>)
+        }
+      </div>
+    )
+  }
+
+
+
 }
 
 export default Users;
