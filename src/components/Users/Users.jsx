@@ -8,7 +8,7 @@ class Users extends React.Component {
       axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.itemsPerPage}&page=${this.props.currentPage}`)
         .then(response => {
           this.props.setUsers(response.data.items)
-          this.props.setTotalCount(response.data.totalCount)
+          this.props.setTotalCount(response.data.totalCount / 100)
         })
     }
   }
