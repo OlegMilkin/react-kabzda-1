@@ -15,4 +15,6 @@
 .content {
     grid-area: c;
     background-color: cornflowerblue;
+    position: relative;
+    min-height: 300px;
 }
