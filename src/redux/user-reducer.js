@@ -64,32 +64,32 @@ const userReducer = (state = initialState, action) => {
   }
 }
 
-export const followAC = (userID) => ({
+export const follow = (userID) => ({
   type: FOLLOW,
   userID
 })
 
-export const unFollowAC = (userID) => ({
+export const unfollow = (userID) => ({
   type: UNFOLLOW,
   userID
 })
 
-export const setUsersAC = (users) => ({
+export const setUsers = (users) => ({
   type: SET_USERS,
   users
 })
 
-export const changeCurrentPageAC = (page) => ({
+export const changeCurrentPage = (page) => ({
   type: CHANGE_CURRENT_PAGE,
   page
 })
 
-export const setTotalCountAC = (total) => ({
+export const setTotalCount = (total) => ({
   type: SET_TOTAL_COUNT,
   total
 })
 
-export const toggleLoaderAC = (isLoading) => ({
+export const toggleLoader = (isLoading) => ({
   type: TOGGLE_LOADER,
   isLoading
 })

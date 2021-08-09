@@ -1,11 +1,11 @@
 import {connect} from "react-redux";
 import {
-  followAC,
-  setUsersAC,
-  unFollowAC,
-  changeCurrentPageAC,
-  setTotalCountAC,
-  toggleLoaderAC
+  follow,
+  setUsers,
+  unfollow,
+  changeCurrentPage,
+  setTotalCount,
+  toggleLoader
 } from "../../redux/user-reducer";
 import React from "react";
 import * as axios from "axios";
@@ -19,29 +19,6 @@ let mapStateToProps = (state) => {
     totalCount: state.usersPage.totalCount,
     currentPage: state.usersPage.currentPage,
     isLoading: state.usersPage.isLoading,
-  }
-}
-
-let mapDispatchToProps = (dispatch) => {
-  return {
-    follow: (userId) => {
-      dispatch(followAC(userId))
-    },
-    unfollow: (userId) => {
-      dispatch(unFollowAC(userId))
-    },
-    setUsers: (users) => {
-      dispatch(setUsersAC(users))
-    },
-    changeCurrentPage: (page) => {
-      dispatch(changeCurrentPageAC(page))
-    },
-    setTotalCount: (total) => {
-      dispatch(setTotalCountAC(total))
-    },
-    toggleLoader: (isLoading) => {
-      dispatch(toggleLoaderAC(isLoading))
-    }
   }
 }
 
@@ -93,6 +70,16 @@ class UsersAPI extends React.Component {
   }
 }
 
-let UserContainer = connect(mapStateToProps, mapDispatchToProps)(UsersAPI);
+let UserContainer = connect(
+  mapStateToProps,
+  {
+    follow,
+    unfollow,
+    setUsers,
+    changeCurrentPage,
+    setTotalCount,
+    toggleLoader,
+  }
+)(UsersAPI);
 
 export default UserContainer;
