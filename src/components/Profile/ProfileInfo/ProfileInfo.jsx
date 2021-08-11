@@ -1,13 +1,41 @@
 import React from "react";
+import spinner from  "../../common/Loader/spinner.gif";
+import classes from "../Profile.module.css";
 
-const ProfileInfo = () => {
+const ProfileInfo = (props) => {
+
+  if (!props.profile) {
+    return <img
+      src={spinner}
+      alt="loading"
+    />
+  }
+
   return (
     <>
       <div>
         <img src='https://images.pexels.com/photos/248797/pexels-photo-248797.jpeg?auto=compress&cs=tinysrgb&h=350' alt=""/>
       </div>
-      <div>
-        ava + description
+      <div className={classes.profileItem}>
+        <div className={classes.profileColumn}>
+          <img src={props.profile.photos.large} alt=""/>
+        </div>
+        <div className={classes.profileColumn}>
+          <table>
+            <tr>
+              <td>
+                <strong>Full name:</strong>
+              </td>
+              <td>{props.profile.fullName}</td>
+            </tr>
+            <tr>
+              <td>
+                <strong>About me:</strong>
+              </td>
+              <td>{props.profile.aboutMe}</td>
+            </tr>
+          </table>
+        </div>
       </div>
     </>
   )

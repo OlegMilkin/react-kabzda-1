@@ -1,0 +1,13 @@
+.profileItem {
+    display: flex;
+    padding: 10px;
+}
+
+.profileItem img {
+    width: 100px;
+    margin-right: 15px;
+}
+
+.profileColumn {
+
+}
