@@ -34,7 +34,7 @@ const Users = (props) => {
           props.users.map(u => <div key={u.id}>
             <span>
               <div>
-                <NavLink to="/profile/fff">
+                <NavLink to={`/profile/${u.id}`}>
                   <img src={u.photos.small || 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_o_UXxC0Hm0Ge1g5RH9GtppPV9fFTB7Jxrg&usqp=CAU'} alt="" width="50"/>
                 </NavLink>
               </div>
