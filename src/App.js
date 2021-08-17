@@ -18,7 +18,7 @@ const App = (props) => {
           <Header />
           <Navbar state={store.getState().sidebar} />
           <div className='content'>
-            <Route path='/profile' component={ProfileContainer}/>
+            <Route path='/profile/:userId?' component={ProfileContainer}/>
             <Route path='/dialogs'>
               <DialogsContainer
                 store={store}

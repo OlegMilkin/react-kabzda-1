@@ -22,18 +22,26 @@ const ProfileInfo = (props) => {
         </div>
         <div className={classes.profileColumn}>
           <table>
-            <tr>
-              <td>
-                <strong>Full name:</strong>
-              </td>
-              <td>{props.profile.fullName}</td>
-            </tr>
-            <tr>
-              <td>
-                <strong>About me:</strong>
-              </td>
-              <td>{props.profile.aboutMe}</td>
-            </tr>
+            <thead>
+              <tr>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <strong>Full name:</strong>
+                </td>
+                <td>{props.profile.fullName}</td>
+              </tr>
+              <tr>
+                <td>
+                  <strong>About me:</strong>
+                </td>
+                <td>{props.profile.aboutMe}</td>
+              </tr>
+            </tbody>
           </table>
         </div>
       </div>
