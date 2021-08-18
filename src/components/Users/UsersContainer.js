@@ -26,7 +26,9 @@ class UsersAPI extends React.Component {
 
   componentDidMount() {
     if (this.props.users.length === 0) {
-      axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.itemsPerPage}&page=${this.props.currentPage}`)
+      axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.itemsPerPage}&page=${this.props.currentPage}`, {
+        withCredentials: true
+      })
         .then(response => {
           this.props.setUsers(response.data.items)
           this.props.setTotalCount(response.data.totalCount / 100)
@@ -38,7 +40,9 @@ class UsersAPI extends React.Component {
   onPageChanged = (page) => {
     this.props.toggleLoader(true);
     this.props.changeCurrentPage(page)
-    axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.itemsPerPage}&page=${page}`)
+    axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.itemsPerPage}&page=${page}`, {
+      withCredentials: true,
+    })
       .then(response => {
         this.props.setUsers(response.data.items)
         this.props.toggleLoader(false);
