@@ -8,9 +8,9 @@ import {
   toggleLoader
 } from "../../redux/user-reducer";
 import React from "react";
-import * as axios from "axios";
 import Users from "./Users";
 import spinner from  "../common/Loader/spinner.gif";
+import {usersAPI} from "../../api/api";
 
 let mapStateToProps = (state) => {
   return {
@@ -26,27 +26,23 @@ class UsersAPI extends React.Component {
 
   componentDidMount() {
     if (this.props.users.length === 0) {
-      axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.itemsPerPage}&page=${this.props.currentPage}`, {
-        withCredentials: true
+      usersAPI.getUsers(this.props.itemsPerPage, this.props.currentPage)
+      .then(data => {
+        this.props.setUsers(data.items)
+        this.props.setTotalCount(data.totalCount / 100)
+        this.props.toggleLoader(false);
       })
-        .then(response => {
-          this.props.setUsers(response.data.items)
-          this.props.setTotalCount(response.data.totalCount / 100)
-          this.props.toggleLoader(false);
-        })
     }
   }
 
   onPageChanged = (page) => {
     this.props.toggleLoader(true);
     this.props.changeCurrentPage(page)
-    axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.itemsPerPage}&page=${page}`, {
-      withCredentials: true,
+    usersAPI.getUsers(this.props.itemsPerPage, page)
+    .then(data => {
+      this.props.setUsers(data.items)
+      this.props.toggleLoader(false);
     })
-      .then(response => {
-        this.props.setUsers(response.data.items)
-        this.props.toggleLoader(false);
-      })
   }
 
   render () {
