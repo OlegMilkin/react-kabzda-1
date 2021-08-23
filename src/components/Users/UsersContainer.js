@@ -1,17 +1,13 @@
 import {connect} from "react-redux";
 import {
   follow,
-  setUsers,
   unfollow,
-  changeCurrentPage,
-  setTotalCount,
-  toggleLoader,
   toggleFollowingProgress,
+  getUsers,
 } from "../../redux/user-reducer";
 import React from "react";
 import Users from "./Users";
-import spinner from  "../common/Loader/spinner.gif";
-import {usersAPI} from "../../api/api";
+import spinner from "../common/Loader/spinner.gif";
 
 let mapStateToProps = (state) => {
   return {
@@ -27,37 +23,24 @@ let mapStateToProps = (state) => {
 class UsersAPI extends React.Component {
 
   componentDidMount() {
-    if (this.props.users.length === 0) {
-      usersAPI.getUsers(this.props.itemsPerPage, this.props.currentPage)
-      .then(data => {
-        this.props.setUsers(data.items)
-        this.props.setTotalCount(data.totalCount / 100)
-        this.props.toggleLoader(false);
-      })
-    }
+    this.props.getUsers(this.props.itemsPerPage, this.props.currentPage);
   }
 
   onPageChanged = (page) => {
-    this.props.toggleLoader(true);
-    this.props.changeCurrentPage(page)
-    usersAPI.getUsers(this.props.itemsPerPage, page)
-    .then(data => {
-      this.props.setUsers(data.items)
-      this.props.toggleLoader(false);
-    })
+    this.props.getUsers(this.props.itemsPerPage, page);
   }
 
-  render () {
+  render() {
     return (
       <>
         {
           this.props.isLoading
-          ? <img
+            ? <img
               src={spinner}
               alt="loading"
-              style={{position: 'absolute', top: '50%', left: '50%', marginLeft: '-32px',  marginTop: '-32px'}}
+              style={{position: 'absolute', top: '50%', left: '50%', marginLeft: '-32px', marginTop: '-32px'}}
             />
-          : <Users
+            : <Users
               users={this.props.users}
               totalCount={this.props.totalCount}
               itemsPerPage={this.props.itemsPerPage}
@@ -67,7 +50,7 @@ class UsersAPI extends React.Component {
               unfollow={this.props.unfollow}
               followingInProgress={this.props.followingInProgress}
               toggleFollowingProgress={this.props.toggleFollowingProgress}
-          />
+            />
         }
       </>
     )
@@ -79,11 +62,8 @@ let UserContainer = connect(
   {
     follow,
     unfollow,
-    setUsers,
-    changeCurrentPage,
-    setTotalCount,
-    toggleLoader,
     toggleFollowingProgress,
+    getUsers,
   }
 )(UsersAPI);
 

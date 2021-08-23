@@ -1,3 +1,5 @@
+import {usersAPI} from "../api/api";
+
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UN_FOLLOW';
 const SET_USERS = 'SET_USERS';
@@ -12,7 +14,7 @@ let initialState = {
   totalCount: 0,
   currentPage: 1,
   isLoading: true,
-  followingInProgress: [2,3],
+  followingInProgress: [2, 3],
 }
 
 const userReducer = (state = initialState, action) => {
@@ -108,4 +110,18 @@ export const toggleFollowingProgress = (isLoading, id) => ({
   isLoading,
   id
 })
+
+export const getUsers = (itemsPerPage, currentPage) => {
+
+  return (dispatch) => {
+    usersAPI.getUsers(itemsPerPage, currentPage)
+      .then(data => {
+        dispatch(setUsers(data.items))
+        dispatch(setTotalCount(data.totalCount / 100))
+        dispatch(changeCurrentPage(currentPage))
+        dispatch(toggleLoader(false));
+      })
+  }
+
+}
 export default userReducer;
