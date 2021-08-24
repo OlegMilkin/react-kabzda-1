@@ -1,3 +1,5 @@
+import {authAPI} from "../api/api";
+
 const SET_USER_DATA = 'SET-USER-DATA';
 const TOGGLE_LOGGED = 'TOGGLE-LOGGED';
 
@@ -35,3 +37,14 @@ export const setUserData = (data) => ({
 export const setLoggedStatus = () => ({
   type: TOGGLE_LOGGED
 })
+
+export const getUserInfo = () => {
+  return (dispatch) => {
+    authAPI.getUserData().then(data => {
+      if (data.resultCode === 0) {
+        dispatch(setUserData(data.data))
+        dispatch(setLoggedStatus())
+      }
+    })
+  }
+}
