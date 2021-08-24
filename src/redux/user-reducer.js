@@ -1,16 +1,20 @@
+import {usersAPI} from "../api/api";
+
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UN_FOLLOW';
 const SET_USERS = 'SET_USERS';
 const CHANGE_CURRENT_PAGE = 'CHANGE-CURRENT-PAGE';
 const SET_TOTAL_COUNT = 'SET-TOTAL-COUNT';
 const TOGGLE_LOADER = 'TOGGLE-LOADER';
+const TOGGLE_IS_FOLLOWING_PROGRESS = 'TOGGLE-IS-FOLLOWING-PROGRESS';
 
 let initialState = {
   users: [],
   itemsPerPage: 20,
   totalCount: 0,
   currentPage: 1,
-  isLoading: true
+  isLoading: true,
+  followingInProgress: [2, 3],
 }
 
 const userReducer = (state = initialState, action) => {
@@ -55,10 +59,17 @@ const userReducer = (state = initialState, action) => {
         totalCount: action.total
       }
     case TOGGLE_LOADER:
-    return {
-      ...state,
-      isLoading: action.isLoading
-    }
+      return {
+        ...state,
+        isLoading: action.isLoading
+      }
+    case TOGGLE_IS_FOLLOWING_PROGRESS:
+      return {
+        ...state,
+        followingInProgress: action.isLoading
+          ? [...state.followingInProgress, action.id]
+          : state.followingInProgress.filter(id => id !== action.id)
+      }
     default:
       return state;
   }
@@ -94,4 +105,23 @@ export const toggleLoader = (isLoading) => ({
   isLoading
 })
 
+export const toggleFollowingProgress = (isLoading, id) => ({
+  type: TOGGLE_IS_FOLLOWING_PROGRESS,
+  isLoading,
+  id
+})
+
+export const getUsers = (itemsPerPage, currentPage) => {
+
+  return (dispatch) => {
+    usersAPI.getUsers(itemsPerPage, currentPage)
+      .then(data => {
+        dispatch(setUsers(data.items))
+        dispatch(setTotalCount(data.totalCount / 100))
+        dispatch(changeCurrentPage(currentPage))
+        dispatch(toggleLoader(false));
+      })
+  }
+
+}
 export default userReducer;
