@@ -2,6 +2,7 @@ import React from "react";
 import classes from "./Dialogs.module.css";
 import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
+import {Redirect} from "react-router-dom";
 
 const Dialogs = (props) => {
 
@@ -22,6 +23,10 @@ const Dialogs = (props) => {
   const messageElement = props.messagesData.map((messageItem) => {
     return <Message message={messageItem.message} key={messageItem.id}/>
   })
+
+  if(!props.isLogged) {
+    return <Redirect to="/login"/>
+  }
 
   return (
     <div className={classes.dialogs}>

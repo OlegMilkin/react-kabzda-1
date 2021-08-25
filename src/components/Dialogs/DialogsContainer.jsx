@@ -1,4 +1,3 @@
-// import React from "react";
 import { updateNewMessageText, addMessageText } from "../../redux/dialogs-reducer";
 import Dialogs from "./Dialogs";
 import connect from "react-redux/lib/connect/connect";
@@ -28,6 +27,7 @@ let mapStateToProps = (state) => {
   return {
     dialogsData: state.dialogs.dialogsData,
     messagesData: state.dialogs.messagesData,
+    isLogged: state.auth.isLogged,
   }
 }
 
