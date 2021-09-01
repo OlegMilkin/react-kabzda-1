@@ -1,36 +1,15 @@
 import { updateNewMessageText, addMessageText } from "../../redux/dialogs-reducer";
 import Dialogs from "./Dialogs";
 import connect from "react-redux/lib/connect/connect";
-
-// const DialogsContainer = (props) => {
-//
-//   let state = props.store.getState();
-//
-//   const addAnswer = () => {
-//     props.store.dispatch(addMessageText())
-//   }
-//
-//   const updateMessageText = (text) => {
-//     props.store.dispatch( updateNewMessageText(text) )
-//   }
-//
-//   return (
-//     <Dialogs
-//       updateMessageText={updateMessageText}
-//       addAnswer={addAnswer}
-//       dialogsData={state.dialogs.dialogsData}
-//       messagesData={state.dialogs.messagesData}
-//     />)
-// }
+import {withAuthRedirect} from "../../hoc/withAuthRedirect";
+import {compose} from "redux";
 
 let mapStateToProps = (state) => {
   return {
     dialogsData: state.dialogs.dialogsData,
     messagesData: state.dialogs.messagesData,
-    isLogged: state.auth.isLogged,
   }
 }
-
 let mapDispatchToProps = (dispatch) => {
   return {
     updateMessageText: (text) => {
@@ -42,6 +21,7 @@ let mapDispatchToProps = (dispatch) => {
   }
 }
 
-const DialogsContainer = connect(mapStateToProps, mapDispatchToProps) (Dialogs);
-
-export default DialogsContainer;
+export default compose (
+    connect(mapStateToProps, mapDispatchToProps),
+    withAuthRedirect
+  )(Dialogs)
