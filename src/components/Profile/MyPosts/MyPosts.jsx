@@ -1,6 +1,7 @@
 import React from "react";
 import classes from './MyPosts.module.css'
 import Post from "./Post/Post";
+import ProfileStatus from "../ProfileStatus/ProfileStatus";
 
 const MyPosts = (props) => {
   const postElement = props.postsData.map( post => <Post message={post.message} like={post.likes} key={post.id}/> )
@@ -17,6 +18,7 @@ const MyPosts = (props) => {
 
   return (
     <div className={classes.myPosts}>
+      <ProfileStatus/>
       <h3>
         My posts
       </h3>
