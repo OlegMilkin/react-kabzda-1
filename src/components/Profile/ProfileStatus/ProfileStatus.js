@@ -6,13 +6,13 @@ export default class ProfileStatus extends React.Component {
     isEditMode: false
   }
 
-  enableEditMode() {
+  enableEditMode = () => {
     this.setState({
       isEditMode: true
     })
   }
 
-  disableEditMode() {
+  disableEditMode = () => {
     this.setState({
       isEditMode: false
     })
@@ -23,8 +23,8 @@ export default class ProfileStatus extends React.Component {
       <>
         {
           this.state.isEditMode
-            ? <input autoFocus={true} onBlur={ () => { this.disableEditMode() }} type="text" value={this.state.statusText} />
-            : <div onDoubleClick={ () => { this.enableEditMode() } }>{this.state.statusText}</div>
+            ? <input autoFocus={true} onBlur={ this.disableEditMode } type="text" value={this.state.statusText} />
+            : <div onDoubleClick={ this.enableEditMode }>{this.state.statusText}</div>
         }
       </>
     )
