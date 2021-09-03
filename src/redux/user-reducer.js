@@ -116,7 +116,7 @@ export const getUsers = (itemsPerPage, currentPage) => {
     usersAPI.getUsers(itemsPerPage, currentPage)
       .then(data => {
         dispatch(setUsers(data.items))
-        dispatch(setTotalCount(data.totalCount / 100))
+        dispatch(setTotalCount(data.totalCount))
         dispatch(changeCurrentPage(currentPage))
         dispatch(toggleLoader(false));
       })
