@@ -1,8 +1,6 @@
 import React from "react";
 
 export default class ProfileStatus extends React.Component {
-  statusInputRef = React.createRef()
-
   state = {
     isEditMode: false,
     status: this.props.status
@@ -27,13 +25,27 @@ export default class ProfileStatus extends React.Component {
     })
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.status !== this.props.status) {
+      this.setState({
+        status: this.props.status
+      })
+    }
+  }
+
   render () {
     return (
       <>
         {
           this.state.isEditMode
-            ? <input autoFocus={true} onBlur={ this.disableEditMode } type="text" value={this.state.status} onChange={this.onStatusChange}/>
-            : <div onDoubleClick={ this.enableEditMode }>{this.props.status}</div>
+            ? <input
+              autoFocus={true}
+              onBlur={ this.disableEditMode }
+              type="text"
+              value={this.state.status}
+              onChange={this.onStatusChange}
+            />
+            : <div onDoubleClick={ this.enableEditMode }>{this.props.status || '-----'}</div>
         }
       </>
     )

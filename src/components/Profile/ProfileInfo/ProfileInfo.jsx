@@ -12,8 +12,6 @@ const ProfileInfo = (props) => {
     />
   }
 
-
-
   return (
     <>
       <div>
