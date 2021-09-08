@@ -1,5 +1,7 @@
 import React from "react";
 import {Field, reduxForm} from "redux-form";
+import {connect} from "react-redux";
+import {loginUser} from "../../redux/auth-reducer";
 
 const LoginForm = (props) => {
   return (
@@ -38,9 +40,13 @@ const LoginReduxForm = reduxForm({
   form: 'login'
 })(LoginForm)
 
-const Login = () => {
+const Login = (props) => {
+
+  console.log(props)
+
   const onSubmit = (formData) => {
-    console.log(formData)
+    let {login, password, rememberMe} = formData
+    props.loginUser(login, password, rememberMe)
   }
 
   return (
@@ -51,4 +57,10 @@ const Login = () => {
   )
 }
 
-export default Login;
+let mapStateToProps = (state) => ({
+  test: 'test'
+})
+
+export default connect(mapStateToProps, {
+  loginUser
+})(Login);

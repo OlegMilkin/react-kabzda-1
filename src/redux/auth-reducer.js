@@ -48,3 +48,15 @@ export const getUserInfo = () => {
     })
   }
 }
+
+export const loginUser = (login, password, rememberMe) => {
+  return (dispatch) => {
+    authAPI.loginUser(login, password, rememberMe).then(data => {
+      if (data.resultCode === 0) {
+        dispatch(setLoggedStatus())
+      } else {
+        console.log('not ok')
+      }
+    })
+  }
+}
