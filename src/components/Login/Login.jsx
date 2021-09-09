@@ -41,9 +41,6 @@ const LoginReduxForm = reduxForm({
 })(LoginForm)
 
 const Login = (props) => {
-
-  console.log(props)
-
   const onSubmit = (formData) => {
     let {login, password, rememberMe} = formData
     props.loginUser(login, password, rememberMe)
@@ -58,7 +55,7 @@ const Login = (props) => {
 }
 
 let mapStateToProps = (state) => ({
-  test: 'test'
+  isLogged: state.auth.isLogged
 })
 
 export default connect(mapStateToProps, {

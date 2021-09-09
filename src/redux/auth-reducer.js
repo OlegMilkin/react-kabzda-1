@@ -53,7 +53,7 @@ export const loginUser = (login, password, rememberMe) => {
   return (dispatch) => {
     authAPI.loginUser(login, password, rememberMe).then(data => {
       if (data.resultCode === 0) {
-        dispatch(setLoggedStatus())
+        dispatch(getUserInfo())
       } else {
         console.log('not ok')
       }
