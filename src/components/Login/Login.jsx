@@ -54,9 +54,7 @@ const Login = (props) => {
   )
 }
 
-let mapStateToProps = (state) => ({
-  isLogged: state.auth.isLogged
-})
+let mapStateToProps = () => ({})
 
 export default connect(mapStateToProps, {
   loginUser

@@ -1,18 +1,13 @@
 import React from "react";
 import classes from './MyPosts.module.css'
 import Post from "./Post/Post";
+import MyPostReduxForm from "./MyPostForm";
 
 const MyPosts = (props) => {
   const postElement = props.postsData.map( post => <Post message={post.message} like={post.likes} key={post.id}/> )
 
-  let textArea = React.createRef()
-
-  let onAddPost = () => {
-    props.addPost();
-  }
-
-  let updatePostText = () => {
-    props.updatePostText(textArea.current.value)
+  const onSubmit = (formData) => {
+    props.addPost(formData.newPostText);
   }
 
   return (
@@ -21,10 +16,7 @@ const MyPosts = (props) => {
         My posts
       </h3>
       <div>
-        <div>
-          <textarea ref={textArea} value={props.newPostText} onChange={updatePostText}/>
-        </div>
-        <button onClick={ onAddPost }>Add post</button>
+        <MyPostReduxForm onSubmit={onSubmit}/>
       </div>
       <div>
         { postElement }
