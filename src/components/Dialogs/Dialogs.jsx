@@ -3,18 +3,9 @@ import classes from "./Dialogs.module.css";
 import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
 import {Redirect} from "react-router-dom";
+import DialogReduxForm from "./DialogForm";
 
 const Dialogs = (props) => {
-
-  let textareaRef = React.createRef();
-
-  const addAnswer = () => {
-    props.addAnswer()
-  }
-
-  const updateMessageText = () => {
-    props.updateMessageText(textareaRef.current.value);
-  }
 
   const dialogElement = props.dialogsData.map((dialog) => {
     return <DialogItem name={dialog.name} id={dialog.id} key={dialog.id}/>
@@ -28,6 +19,10 @@ const Dialogs = (props) => {
     return <Redirect to="/login"/>
   }
 
+  const onSubmit = (formData) => {
+    props.addAnswer(formData.dialogText)
+  }
+
   return (
     <div className={classes.dialogs}>
       <div className={classes.dialogsItems}>
@@ -36,13 +31,7 @@ const Dialogs = (props) => {
       <div className={classes.messages}>
         { messageElement }
         <div className={classes.answerWrapp}>
-          <textarea
-            className={classes.answerTextarea}
-            ref={textareaRef}
-            value={props.messageText}
-            onChange={updateMessageText}
-          />
-          <button className={classes.answerButton} onClick={ addAnswer }>App Answer</button>
+          <DialogReduxForm onSubmit={onSubmit}/>
         </div>
       </div>
     </div>
