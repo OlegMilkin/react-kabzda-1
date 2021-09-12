@@ -2,6 +2,8 @@ import React from "react";
 import {Field, reduxForm} from "redux-form";
 import {connect} from "react-redux";
 import {loginUser} from "../../redux/auth-reducer";
+import { required } from '../../helpers/validators';
+import { renderField } from '../../helpers/validators';
 
 const LoginForm = (props) => {
   return (
@@ -9,23 +11,26 @@ const LoginForm = (props) => {
       <div>
         <Field
           placeholder={"Login"}
-          component={"input"}
+          component={renderField}
           name={"login"}
+          validate={[required]}
         />
       </div>
       <div>
         <Field
           placeholder={"Password"}
-          component={"input"}
+          component={renderField}
           name={"password"}
           type={"password"}
+          validate={[required]}
         />
       </div>
       <div>
         <Field
-          component={"input"}
+          component={renderField}
           type={"checkbox"}
           name={"rememberMe"}
+          validate={[required]}
         />
         remember me
       </div>

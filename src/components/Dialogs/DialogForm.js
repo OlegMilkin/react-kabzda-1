@@ -1,14 +1,18 @@
 import React from "react";
 import classes from "./Dialogs.module.css";
 import {Field, reduxForm } from "redux-form";
+import { required } from '../../helpers/validators';
+import { renderField } from '../../helpers/validators';
 
 const DialogForm = (props) => {
   return (
     <form onSubmit={props.handleSubmit}>
       <Field
-        component="textarea"
+        type="textarea"
+        component={renderField}
         name="dialogText"
         className={classes.answerTextarea}
+        validate={[required]}
       />
       <button
         className={classes.answerButton}
