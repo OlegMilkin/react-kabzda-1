@@ -17,12 +17,12 @@ export default function authReducer(state = initialState, action){
     case SET_USER_DATA:
       return {
         ...state,
-        userData: {...action.data}
+        userData: {...action.data},
       }
     case TOGGLE_LOGGED:
       return {
         ...state,
-        isLogged: true
+        isLogged: action
       }
     default:
       return state
@@ -34,8 +34,9 @@ export const setUserData = (data) => ({
     data
 })
 
-export const setLoggedStatus = () => ({
-  type: TOGGLE_LOGGED
+export const setLoggedStatus = (data) => ({
+  type: TOGGLE_LOGGED,
+  data
 })
 
 export const getUserInfo = () => {
@@ -43,7 +44,7 @@ export const getUserInfo = () => {
     authAPI.getUserData().then(data => {
       if (data.resultCode === 0) {
         dispatch(setUserData(data.data))
-        dispatch(setLoggedStatus())
+        dispatch(setLoggedStatus(true))
       }
     })
   }
@@ -56,6 +57,17 @@ export const loginUser = (login, password, rememberMe) => {
         dispatch(getUserInfo())
       } else {
         console.log('not ok')
+      }
+    })
+  }
+}
+
+export const logOut = () => {
+  return (dispatch) => {
+    authAPI.logout().then(data => {
+      if (data.resultCode === 0) {
+        dispatch(setUserData(null, null, null))
+        dispatch(setLoggedStatus(false))
       }
     })
   }

@@ -3,6 +3,7 @@ import classes from './Header.module.css';
 import {NavLink} from "react-router-dom";
 
 const Header = (props) => {
+
   return (
     <header className={classes.header}>
       <img
@@ -10,7 +11,10 @@ const Header = (props) => {
         alt="img"/>
       {
         props.isLogged
-          ? <span className={classes.loggedText}> {props.userName} </span>
+          ? <span className={classes.loggedText}>
+              {props.userName} -
+              <button onClick={props.logOut}>Log out</button>
+            </span>
           : <NavLink
             to="/login"
             className={classes.loggedText}

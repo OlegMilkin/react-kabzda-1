@@ -1,9 +1,10 @@
 import React from "react";
 import {Field, reduxForm} from "redux-form";
 import {connect} from "react-redux";
-import {loginUser} from "../../redux/auth-reducer";
+import {loginUser, logOut} from "../../redux/auth-reducer";
 import { required } from '../../helpers/validators';
 import { renderField } from '../../helpers/validators';
+import {Redirect} from "react-router-dom";
 
 const LoginForm = (props) => {
   return (
@@ -51,6 +52,10 @@ const Login = (props) => {
     props.loginUser(login, password, rememberMe)
   }
 
+  if (props.isLogged) {
+    return <Redirect to={"/profile"}/>
+  }
+
   return (
     <div>
       <h1>Login</h1>
@@ -59,8 +64,11 @@ const Login = (props) => {
   )
 }
 
-let mapStateToProps = () => ({})
+const mapStateToProps = (state) => ({
+  isLogged: state.auth.isLogged
+})
 
 export default connect(mapStateToProps, {
-  loginUser
+  loginUser,
+  logOut
 })(Login);
