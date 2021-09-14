@@ -16,9 +16,9 @@ const Header = (props) => {
               <button onClick={props.logOut}>Log out</button>
             </span>
           : <NavLink
-            to="/login"
-            className={classes.loggedText}
-          >
+              to="/login"
+              className={classes.loggedText}
+            >
             Login
           </NavLink>
       }
