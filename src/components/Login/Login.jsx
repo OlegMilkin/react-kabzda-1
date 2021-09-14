@@ -35,6 +35,11 @@ const LoginForm = (props) => {
         />
         remember me
       </div>
+      { props.error &&
+        <div style={{border: "1px solid red"}}>
+          {props.error}
+        </div>
+      }
       <div>
         <button>Login</button>
       </div>

@@ -1,4 +1,5 @@
 import {authAPI} from "../api/api";
+import {stopSubmit} from "redux-form";
 
 const SET_USER_DATA = 'SET-USER-DATA';
 const TOGGLE_LOGGED = 'TOGGLE-LOGGED';
@@ -56,7 +57,8 @@ export const loginUser = (login, password, rememberMe) => {
       if (data.resultCode === 0) {
         dispatch(getUserInfo())
       } else {
-        console.log('not ok')
+        let msg = response.data.messages.length > 0 ? response.data.messages[0] : "Some error"
+        dispatch(stopSubmit("login", {_error: "Something wrong"}));
       }
     })
   }
