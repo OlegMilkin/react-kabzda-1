@@ -11,13 +11,22 @@ import {Route, BrowserRouter} from "react-router-dom";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import store from "./redux/redux-store";
 import HeaderContainer from "./components/Header/HeaderContainer";
+import {getUserInfo} from './redux/auth-reducer';
+import {connect} from "react-redux";
+import {initializeApp} from "./redux/app-reducer";
 
-const App = (props) => {
-  return (
+class App extends React.Component {
+
+  componentDidMount() {
+    this.props.initializeApp()
+  }
+
+  render() {
+    return (
       <BrowserRouter>
         <div className='app-wrapper'>
-          <HeaderContainer />
-          <Navbar state={store.getState().sidebar} />
+          <HeaderContainer/>
+          <Navbar state={store.getState().sidebar}/>
           <div className='content'>
             <Route path='/profile/:userId?' component={ProfileContainer}/>
             <Route path='/dialogs'>
@@ -25,15 +34,19 @@ const App = (props) => {
                 store={store}
               />
             </Route>
-            <Route path='/news' component={News} />
-            <Route path='/music' component={Music} />
-            <Route path='/settings' component={Settings} />
+            <Route path='/news' component={News}/>
+            <Route path='/music' component={Music}/>
+            <Route path='/settings' component={Settings}/>
             <Route path='/users' component={UsersContainer}/>
             <Route path='/login' component={Login}/>
           </div>
         </div>
       </BrowserRouter>
     )
+  }
 }
 
-export default App;
+export default connect(null, {
+  getUserInfo,
+  initializeApp
+})(App);

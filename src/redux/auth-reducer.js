@@ -42,7 +42,7 @@ export const setLoggedStatus = (data) => ({
 
 export const getUserInfo = () => {
   return (dispatch) => {
-    authAPI.getUserData().then(data => {
+    return authAPI.getUserData().then(data => {
       if (data.resultCode === 0) {
         dispatch(setUserData(data.data))
         dispatch(setLoggedStatus(true))
