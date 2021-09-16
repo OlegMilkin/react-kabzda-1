@@ -24,8 +24,9 @@ export const initializedSuccess = () => ({
 
 export const initializeApp = () => (dispatch) => {
   let promise = dispatch(getUserInfo())
-  //console.log(promise)
-  dispatch(initializedSuccess())
+    Promise.all([promise]).then(()=> {
+      dispatch(initializedSuccess())
+    })
 }
 
 

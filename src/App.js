@@ -14,6 +14,7 @@ import HeaderContainer from "./components/Header/HeaderContainer";
 import {getUserInfo} from './redux/auth-reducer';
 import {connect} from "react-redux";
 import {initializeApp} from "./redux/app-reducer";
+import spinner from "./components/common/Loader/spinner.gif";
 
 class App extends React.Component {
 
@@ -22,6 +23,14 @@ class App extends React.Component {
   }
 
   render() {
+
+    if(!this.props.initialized) {
+      return <img
+        src={spinner}
+        alt="loading"
+      />
+    }
+
     return (
       <BrowserRouter>
         <div className='app-wrapper'>
@@ -46,7 +55,11 @@ class App extends React.Component {
   }
 }
 
-export default connect(null, {
+const mapStateToProps = (state) => ({
+  initialized: state.app.initialized
+})
+
+export default connect(mapStateToProps, {
   getUserInfo,
   initializeApp
 })(App);
