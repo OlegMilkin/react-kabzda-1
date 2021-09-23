@@ -7,7 +7,7 @@ import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
 import Login from "./components/Login/Login";
 import UsersContainer from "./components/Users/UsersContainer";
-import {Route, BrowserRouter} from "react-router-dom";
+import {Route} from "react-router-dom";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import store from "./redux/redux-store";
 import HeaderContainer from "./components/Header/HeaderContainer";
@@ -24,7 +24,7 @@ class App extends React.Component {
 
   render() {
 
-    if(!this.props.initialized) {
+    if (!this.props.initialized) {
       return <img
         src={spinner}
         alt="loading"
@@ -32,25 +32,23 @@ class App extends React.Component {
     }
 
     return (
-      <BrowserRouter>
-        <div className='app-wrapper'>
-          <HeaderContainer/>
-          <Navbar state={store.getState().sidebar}/>
-          <div className='content'>
-            <Route path='/profile/:userId?' component={ProfileContainer}/>
-            <Route path='/dialogs'>
-              <DialogsContainer
-                store={store}
-              />
-            </Route>
-            <Route path='/news' component={News}/>
-            <Route path='/music' component={Music}/>
-            <Route path='/settings' component={Settings}/>
-            <Route path='/users' component={UsersContainer}/>
-            <Route path='/login' component={Login}/>
-          </div>
+      <div className='app-wrapper'>
+        <HeaderContainer/>
+        <Navbar state={store.getState().sidebar}/>
+        <div className='content'>
+          <Route path='/profile/:userId?' component={ProfileContainer}/>
+          <Route path='/dialogs'>
+            <DialogsContainer
+              store={store}
+            />
+          </Route>
+          <Route path='/news' component={News}/>
+          <Route path='/music' component={Music}/>
+          <Route path='/settings' component={Settings}/>
+          <Route path='/users' component={UsersContainer}/>
+          <Route path='/login' component={Login}/>
         </div>
-      </BrowserRouter>
+      </div>
     )
   }
 }

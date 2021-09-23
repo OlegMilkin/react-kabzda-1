@@ -1,7 +1,7 @@
 import {authAPI} from "../api/api";
 import {stopSubmit} from "redux-form";
 
-const SET_USER_DATA = 'SET-USER-DATA';
+const SET_USER_DATA = 'samirai-network/auth/SET-USER-DATA';
 const TOGGLE_LOGGED = 'TOGGLE-LOGGED';
 
 const initialState = {
@@ -13,7 +13,7 @@ const initialState = {
   isLogged: false
 }
 
-export default function authReducer(state = initialState, action){
+export default function authReducer(state = initialState, action) {
   switch (action.type) {
     case SET_USER_DATA:
       return {
@@ -31,8 +31,8 @@ export default function authReducer(state = initialState, action){
 }
 
 export const setUserData = (data) => ({
-    type: SET_USER_DATA,
-    data
+  type: SET_USER_DATA,
+  data
 })
 
 export const setLoggedStatus = (data) => ({
@@ -41,36 +41,36 @@ export const setLoggedStatus = (data) => ({
 })
 
 export const getUserInfo = () => {
-  return (dispatch) => {
-    return authAPI.getUserData().then(data => {
-      if (data.resultCode === 0) {
-        dispatch(setUserData(data.data))
-        dispatch(setLoggedStatus(true))
-      }
-    })
+  return async (dispatch) => {
+    let response = await authAPI.getUserData();
+
+    if (response.resultCode === 0) {
+      dispatch(setUserData(response.data))
+      dispatch(setLoggedStatus(true))
+    }
   }
 }
 
 export const loginUser = (login, password, rememberMe) => {
-  return (dispatch) => {
-    authAPI.loginUser(login, password, rememberMe).then(data => {
-      if (data.resultCode === 0) {
-        dispatch(getUserInfo())
-      } else {
-        let msg = data.messages.length > 0 ? data.messages[0] : "Some error"
-        dispatch(stopSubmit("login", {_error: msg}));
-      }
-    })
+  return async (dispatch) => {
+    let response = await authAPI.loginUser(login, password, rememberMe);
+
+    if (response.resultCode === 0) {
+      dispatch(getUserInfo())
+    } else {
+      let msg = response.messages.length > 0 ? response.messages[0] : "Some error"
+      dispatch(stopSubmit("login", {_error: msg}));
+    }
   }
 }
 
 export const logOut = () => {
-  return (dispatch) => {
-    authAPI.logout().then(data => {
-      if (data.resultCode === 0) {
-        dispatch(setUserData(null, null, null))
-        dispatch(setLoggedStatus(false))
-      }
-    })
+  return async (dispatch) => {
+    let response = await authAPI.logout();
+
+    if (response.resultCode === 0) {
+      dispatch(setUserData(null, null, null))
+      dispatch(setLoggedStatus(false))
+    }
   }
 }

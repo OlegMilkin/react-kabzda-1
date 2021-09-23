@@ -112,38 +112,33 @@ export const toggleFollowingProgress = (isLoading, id) => ({
 })
 
 export const getUsers = (itemsPerPage, currentPage) => {
-  return (dispatch) => {
-    usersAPI.getUsers(itemsPerPage, currentPage)
-      .then(data => {
-        dispatch(setUsers(data.items))
-        dispatch(setTotalCount(data.totalCount))
-        dispatch(changeCurrentPage(currentPage))
-        dispatch(toggleLoader(false));
-      })
+  return async (dispatch) => {
+    let response = await usersAPI.getUsers(itemsPerPage, currentPage);
+
+    dispatch(setUsers(response.items))
+    dispatch(setTotalCount(response.totalCount))
+    dispatch(changeCurrentPage(currentPage))
+    dispatch(toggleLoader(false));
   }
 }
 
 export const follow = (userId) => {
-  return (dispatch) => {
+  return async (dispatch) => {
     toggleFollowingProgress(true, userId)
 
-    usersAPI.follow(userId)
-      .then(data => {
-          dispatch(acceptFollow(userId))
-          toggleFollowingProgress(false, userId)
-      })
+    await usersAPI.follow(userId);
+    dispatch(acceptFollow(userId))
+    toggleFollowingProgress(false, userId)
   }
 }
 
 export const unfollow = (userId) => {
-  return (dispatch) => {
+  return async (dispatch) => {
     dispatch(toggleFollowingProgress(true, userId))
 
-    usersAPI.unfollow(userId).then(data => {
-      dispatch(acceptUnfollow(userId))
-      dispatch(toggleFollowingProgress(false, userId))
-    })
-
+    await usersAPI.unfollow(userId)
+    dispatch(acceptUnfollow(userId))
+    dispatch(toggleFollowingProgress(false, userId))
   }
 }
 

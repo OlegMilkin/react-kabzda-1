@@ -6,9 +6,9 @@ import { required } from '../../helpers/validators';
 import { renderField } from '../../helpers/validators';
 import {Redirect} from "react-router-dom";
 
-const LoginForm = (props) => {
+const LoginForm = ({handleSubmit, error}) => {
   return (
-    <form onSubmit={props.handleSubmit}>
+    <form onSubmit={handleSubmit}>
       <div>
         <Field
           placeholder={"Login"}
@@ -35,9 +35,9 @@ const LoginForm = (props) => {
         />
         remember me
       </div>
-      { props.error &&
-        <div style={{border: "1px solid red"}}>
-          {props.error}
+      { error &&
+        <div style={{ border: "1px solid red" }}>
+          { error }
         </div>
       }
       <div>
