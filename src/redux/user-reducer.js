@@ -12,7 +12,7 @@ let initialState = {
   users: [],
   itemsPerPage: 20,
   totalCount: 0,
-  currentPage: 1,
+  activePage: 1,
   isLoading: true,
   followingInProgress: [2, 3],
 }
@@ -51,7 +51,7 @@ const userReducer = (state = initialState, action) => {
     case CHANGE_CURRENT_PAGE:
       return {
         ...state,
-        currentPage: action.page
+        activePage: action.page
       }
     case SET_TOTAL_COUNT:
       return {
@@ -90,7 +90,8 @@ export const setUsers = (users) => ({
   users
 })
 
-export const changeCurrentPage = (page) => ({
+export const changeCurrentPage = (page) => (
+  {
   type: CHANGE_CURRENT_PAGE,
   page
 })
@@ -111,13 +112,13 @@ export const toggleFollowingProgress = (isLoading, id) => ({
   id
 })
 
-export const getUsers = (itemsPerPage, currentPage) => {
+export const getUsers = (itemsPerPage, activePage) => {
   return async (dispatch) => {
-    let response = await usersAPI.getUsers(itemsPerPage, currentPage);
+    let response = await usersAPI.getUsers(itemsPerPage, activePage);
 
     dispatch(setUsers(response.items))
     dispatch(setTotalCount(response.totalCount))
-    dispatch(changeCurrentPage(currentPage))
+    dispatch(changeCurrentPage(activePage))
     dispatch(toggleLoader(false));
   }
 }

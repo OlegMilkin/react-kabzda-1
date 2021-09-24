@@ -14,7 +14,7 @@ let mapStateToProps = (state) => {
     users: state.usersPage.users,
     itemsPerPage: state.usersPage.itemsPerPage,
     totalCount: state.usersPage.totalCount,
-    currentPage: state.usersPage.currentPage,
+    activePage: state.usersPage.activePage,
     isLoading: state.usersPage.isLoading,
     followingInProgress: state.usersPage.followingInProgress,
   }
@@ -23,11 +23,12 @@ let mapStateToProps = (state) => {
 class UsersAPI extends React.Component {
 
   componentDidMount() {
-    this.props.getUsers(this.props.itemsPerPage, this.props.currentPage);
+    this.props.getUsers(this.props.itemsPerPage, this.props.activePage);
   }
 
   onPageChanged = (page) => {
     this.props.getUsers(this.props.itemsPerPage, page);
+
   }
 
   render() {
@@ -45,7 +46,7 @@ class UsersAPI extends React.Component {
               totalCount={this.props.totalCount}
               itemsPerPage={this.props.itemsPerPage}
               onPageChanged={this.onPageChanged}
-              currentPage={this.props.currentPage}
+              activePage={this.props.activePage}
               follow={this.props.follow}
               unfollow={this.props.unfollow}
               followingInProgress={this.props.followingInProgress}

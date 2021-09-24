@@ -18,3 +18,31 @@
     position: relative;
     min-height: 300px;
 }
+
+.pagination {
+    list-style-type: none;
+    display: inline-flex;
+}
+
+.pagination-wrapp {
+    text-align: center;
+}
+
+.pagination li {
+    padding: 5px;
+}
+
+.pagination li.disabled {
+    display: none;
+}
+
+.pagination li a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: normal;
+    font-size: 15px;
+}
+
+.pagination li.active a {
+    color: #000;
+}

@@ -1,34 +1,52 @@
 import React from "react";
 import classes from './user.module.css';
 import {NavLink} from "react-router-dom";
+import Pagination from "react-js-pagination";
+
 
 const Users = (props) => {
 
-  let pagerItems = Math.ceil(props.totalCount / props.itemsPerPage);
+  //let pagerItems = Math.ceil(props.totalCount / props.itemsPerPage);
 
-  let pager = [];
+  // let pager = [];
+  //
+  // for (let i = 1; i <= pagerItems; i++) {
+  //   pager.push(i)
+  // }
 
-  for (let i = 1; i <= pagerItems; i++) {
-    pager.push(i)
+  const handlePageChange = (pageNumber) => {
+    props.onPageChanged(pageNumber)
   }
 
   return (
     <div>
-      <ul className={classes.pagerList}>
-        {
-          pager.map(page => {
-            return (
-              <li
-                onClick={() => props.onPageChanged(page)}
-                key={page}
-                className={page === props.currentPage ? classes.active : ''}
-              >
-                {page}
-              </li>
-            )
-          })
-        }
-      </ul>
+
+      <div className="pagination-wrapp">
+        <Pagination
+          activePage={props.activePage}
+          itemsCountPerPage={props.itemsPerPage}
+          totalItemsCount={props.totalCount}
+          pageRangeDisplayed={5}
+          onChange={ handlePageChange }
+        />
+      </div>
+
+
+      {/*<ul className={classes.pagerList}>*/}
+      {/*  {*/}
+      {/*    pager.map(page => {*/}
+      {/*      return (*/}
+      {/*        <li*/}
+      {/*          onClick={() => props.onPageChanged(page)}*/}
+      {/*          key={page}*/}
+      {/*          className={page === props.activePage ? classes.active : ''}*/}
+      {/*        >*/}
+      {/*          {page}*/}
+      {/*        </li>*/}
+      {/*      )*/}
+      {/*    })*/}
+      {/*  }*/}
+      {/*</ul>*/}
 
       {
         props.users.map(u => <div key={u.id}>
