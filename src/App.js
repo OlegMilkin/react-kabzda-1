@@ -1,20 +1,21 @@
-import React from 'react';
+import React, {Suspense, lazy} from 'react';
 import './App.css';
 import Navbar from './components/Navbar/Navbar';
-import ProfileContainer from './components/Profile/ProfileContainer';
-import News from "./components/News/News";
-import Music from "./components/Music/Music";
-import Settings from "./components/Settings/Settings";
-import Login from "./components/Login/Login";
-import UsersContainer from "./components/Users/UsersContainer";
-import {Route} from "react-router-dom";
-import DialogsContainer from "./components/Dialogs/DialogsContainer";
+import {Route, Switch} from "react-router-dom";
 import store from "./redux/redux-store";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import {getUserInfo} from './redux/auth-reducer';
 import {connect} from "react-redux";
 import {initializeApp} from "./redux/app-reducer";
 import spinner from "./components/common/Loader/spinner.gif";
+
+const ProfileContainer = lazy(() => import ('./components/Profile/ProfileContainer'));
+const News = lazy(() => import ('./components/News/News'));
+const Music = lazy(() => import ('./components/Music/Music'));
+const Settings = lazy(() => import ('./components/Settings/Settings'));
+const UsersContainer = lazy(() => import ('./components/Users/UsersContainer'));
+const DialogsContainer = lazy(() => import ('./components/Dialogs/DialogsContainer'));
+const Login = lazy(() => import ('./components/Login/Login'));
 
 class App extends React.Component {
 
@@ -36,17 +37,21 @@ class App extends React.Component {
         <HeaderContainer/>
         <Navbar state={store.getState().sidebar}/>
         <div className='content'>
-          <Route path='/profile/:userId?' component={ProfileContainer}/>
-          <Route path='/dialogs'>
-            <DialogsContainer
-              store={store}
-            />
-          </Route>
-          <Route path='/news' component={News}/>
-          <Route path='/music' component={Music}/>
-          <Route path='/settings' component={Settings}/>
-          <Route path='/users' component={UsersContainer}/>
-          <Route path='/login' component={Login}/>
+          <Suspense fallback={<div>Loading...</div>}>
+            <Switch>
+              <Route path='/profile/:userId?' component={ProfileContainer}/>
+              <Route path='/dialogs'>
+                <DialogsContainer
+                  store={store}
+                />
+              </Route>
+              <Route path='/news' component={News}/>
+              <Route path='/music' component={Music}/>
+              <Route path='/settings' component={Settings}/>
+              <Route path='/users' component={UsersContainer}/>
+              <Route path='/login' component={Login}/>
+            </Switch>
+          </Suspense>
         </div>
       </div>
     )
