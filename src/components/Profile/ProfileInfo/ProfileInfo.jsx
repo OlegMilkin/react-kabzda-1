@@ -12,6 +12,12 @@ const ProfileInfo = (props) => {
     />
   }
 
+  const onMainPhotoSelected = (e) => {
+    if (e.target.files.length) {
+      props.savePhoto(e.target.files[0])
+    }
+  }
+
   return (
     <>
       <div>
@@ -20,7 +26,8 @@ const ProfileInfo = (props) => {
       <ProfileStatusHook status={props.status} updateStatus={props.updateStatus}/>
       <div className={classes.profileItem}>
         <div className={classes.profileColumn}>
-          <img src={props.profile.photos.large} alt=""/>
+          <img src={props.profile.photos.large || 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_o_UXxC0Hm0Ge1g5RH9GtppPV9fFTB7Jxrg&usqp=CAU'} alt=""/>
+          { props.isOwner && <input type='file' onChange={ onMainPhotoSelected }/>}
         </div>
         <div className={classes.profileColumn}>
           <table>
