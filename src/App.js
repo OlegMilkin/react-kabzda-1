@@ -1,7 +1,7 @@
 import React, {Suspense, lazy} from 'react';
 import './App.css';
 import Navbar from './components/Navbar/Navbar';
-import {Route, Switch} from "react-router-dom";
+import {Redirect, Route, Switch} from "react-router-dom";
 import store from "./redux/redux-store";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import {getUserInfo} from './redux/auth-reducer';
@@ -19,8 +19,17 @@ const Login = lazy(() => import ('./components/Login/Login'));
 
 class App extends React.Component {
 
+  catchAllUnhandledErrors = (promiseRejectionEvent) => {
+    console.error(promiseRejectionEvent)
+  }
+
   componentDidMount() {
-    this.props.initializeApp()
+    this.props.initializeApp();
+    window.addEventListener("unhandledrejection", this.catchAllUnhandledErrors);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("unhandledrejection", this.catchAllUnhandledErrors);
   }
 
   render() {
@@ -39,6 +48,9 @@ class App extends React.Component {
         <div className='content'>
           <Suspense fallback={<div>Loading...</div>}>
             <Switch>
+              <Route exact path='/'>
+                <Redirect to="/profile"></Redirect>
+              </Route>
               <Route path='/profile/:userId?' component={ProfileContainer}/>
               <Route path='/dialogs'>
                 <DialogsContainer
@@ -50,6 +62,9 @@ class App extends React.Component {
               <Route path='/settings' component={Settings}/>
               <Route path='/users' component={UsersContainer}/>
               <Route path='/login' component={Login}/>
+              <Route path='*'>
+                <div>404 Not Found</div>
+              </Route>
             </Switch>
           </Suspense>
         </div>
